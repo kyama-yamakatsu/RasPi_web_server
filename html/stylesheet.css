@@ -1,0 +1,82 @@
+/**/
+@charset "utf-8";
+
+
+body	{ margin-left:10pt; }
+a	{ text-decoration: none; }
+a:hover	{ color: yellow; }
+
+.lbl {
+	font:bold 100%/100% Helvetica, sans-serif;
+	font-size:16pt;
+	color:#5F9EA0;
+
+	padding-left: 10px;
+}
+.btn {
+	font:bold 100%/100% Helvetica, sans-serif;
+	font-size:20pt;
+	color:white;
+	background-color:#5F9EA0;
+
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 4px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+/*--*/
+.framePhoto {
+	border-spacing: 0px;
+	border-collapse: collapse;
+	cellspacing: 0px;
+	cellpadding: 0px;
+	border: 0px solid lightgray;
+}
+.sub	{
+	color: gray;
+	font: bold 100%/100% Helvetica, sans-serif;
+	font-size:18pt;
+	padding-left: 16px;
+	padding-right: 16px;
+	border-left: 8px solid mediumseagreen;
+}
+.exp	{
+	color:black;
+	font:sans-serif;
+	font-size:12pt;
+	padding-left: 2px;
+}
+.photo	{
+	vertical-align:top;
+	padding-top: 0px;
+	padding-left: 0px;
+	padding-right: 10px;
+	padding-bottom: 12px;
+	border: 0px solid #bbb;
+}
+
+
+/* slider design */
+input[type="range"] {
+	-webkit-appearance: none;
+	appearance: none;
+	outline: none;
+	cursor: pointer;
+
+	height: 14px;
+	width: 400px;
+	background: #5F9EA0;
+	border-radius: 8px;
+	border: solid 3px #dff1ff;
+}
+/* nob design */
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none; /* デフォルトのつまみスタイルを解除 */
+	background: lightsalmon;
+	width: 20px;
+	height: 30px;
+	border-radius: 6px;
+	box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15);
+}

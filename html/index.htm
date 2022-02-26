@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RasPi Web Server</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+
+<script language="JavaScript">
+//  var ScriptUrl = "http://localhost/cgi-bin/cgi-python.py";
+  var ScriptUrl = "http://192.168.1.10/cgi-bin/cgi-python.py";
+  let xhr = new XMLHttpRequest();
+
+  function xhr_open(command) {
+    xhr.open("GET", ScriptUrl + '?command=' + command, true);
+    xhr.send();
+  }
+
+  function xhr_open2(command, param) {
+    xhr.open("GET", ScriptUrl + '?command='+command + '&param='+param, true);
+    xhr.send();
+  }
+
+  function setup() {
+    xhr_open("setup");
+
+    xhr.onerror = function() {
+      alert("Request failed");
+    };
+
+    xhr.onload = function() {
+      if ( xhr.status != 200 ) { // レスポンスの HTTP ステータスを解析
+        alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+      } else {
+        update();
+      }
+    };
+
+    const rangeOnChangeV = (event) => {
+//      tElem = document.getElementById('t1');
+//      tElem.innerText = event.target.value;
+	xhr_open2("volume", event.target.value);
+    }
+    const rangeOnChangeL = (event) => {
+	xhr_open2("light", event.target.value);
+    }
+    document.getElementById('inputV').addEventListener('input',rangeOnChangeV);
+    document.getElementById('inputL').addEventListener('input',rangeOnChangeL);
+  }
+
+  function cmd(command) {
+    xhr_open(command);
+    return false;
+  }
+
+  function cmd2(command, param) {
+    xhr_open2(command, param);
+    return false;
+  }
+
+  function update() {
+    var string = xhr.response; // 文字列で返った
+    var data = string.split("\n");
+    var i = 0;
+    while( i< 3) {
+//        alert(data[i]);
+//        alert(data[i].toString());
+//        alert(data[i] == 0);
+        document.getElementsByName("btn")[i].style.backgroundColor =
+	(data[i] == 0) ? "#5F9EA0" : "lightsalmon";
+	i++;
+    }
+    document.getElementById('inputV').value = parseInt(data[i++]);
+    document.getElementById('inputL').value = parseInt(data[i]);
+  }
+</script>
+</head>
+<body>
+
+
+<p></p>
+<a href="" class="btn" name="btn" onClick="return cmd('acPower')">
+Audio Corner Power</a>
+<p></p>
+
+<font class="lbl">Speaker</font>
+<br>
+<a href="" class="btn" name="btn" onClick="return cmd('spSwap')">Swap</a>
+<a href="" class="btn" name="btn" onClick="return cmd('sp2nd')">2nd</a>
+<p></p>
+
+<font class="lbl" id="t1">Volume</font>
+<br>
+<input type="range" id="inputV" min="0" max="100" step="5">
+<p></p>
+
+<font class="lbl" id="t2">Light</font>
+<br>
+<input type="range" id="inputL" min="0" max="15" step="1">
+<p></p>
+
+<font class="lbl">iRadio</font>
+<br>
+<a href="" class="btn" name="btn" onClick="return cmd('irStop')">stop</a>
+<a href="https://siteyamakatsu.jp/audio/internet_music.htm">
+<font class="lbl">link to internet music</font></a>
+<p>　</p>
+
+
+<div class=sub>Classic</div>
+<table class=framePhoto>
+<tr>
+    <td class=exp>KDFC</td>
+</tr>
+<tr>
+    <td class=photo>
+	<a href="" onClick="return cmd2('irStation',
+	'https://18703.live.streamtheworld.com/KDFCFMAAC.aac')">
+	<img width=100
+	src="https://cdn-radiotime-logos.tunein.com/s35953q.png">
+	</a>
+    </td>
+</tr>
+</table>
+<p></p>
+
+<div class=sub>Radio Swiss</div>
+<table class=framePhoto>
+<tr>
+    <td class=exp>Classic</td>
+    <td class=exp>Pop</td>
+</tr>
+<tr>
+    <td class=photo>
+	<a href="" onClick="return cmd2('irStation',
+	'http://stream.srg-ssr.ch/m/rsc_de/aacp_96')">
+	<img width=100
+	src="https://cdn.onlineradiobox.com/img/logo/7/2447.v4.png">
+	</a>
+    </td>
+    <td class=photo>
+	<a href="" onClick="return cmd2('irStation',
+	'http://stream.srg-ssr.ch/m/rsp/mp3_128')">
+	<img width=100
+	src="https://cdn.onlineradiobox.com/img/logo/2/2462.v3.png">
+	</a>
+    </td>
+</tr>
+</table>
+<p></p>
+
+<div class=sub>1.FM Radio</div>
+<table class=framePhoto>
+<tr>
+    <td class=exp>A List 80s</td>
+    <td class=exp>All Euro 80's</td>
+    <td class=exp>Classic Rock..</td>
+    <td class=exp>Bossa Nova</td>
+</tr>
+<tr>
+    <td class=photo>
+	<a href="" onClick="return cmd2('irStation',
+	'https://strmreg.1.fm/back280s_mobile_mp3')">
+	<img width=100
+	src="https://cdn.onlineradiobox.com/img/logo/5/2885.v1.png">
+	</a>
+    </td>
+    <td class=photo>
+	<a href="" onClick="return cmd2('irStation',
+	'https://strmreg.1.fm/80s_90s_mobile_mp3')">
+	<img width=100
+	src="https://cdn.onlineradiobox.com/img/logo/5/2885.v1.png">
+	</a>
+    </td>
+    <td class=photo>
+	<a href="" onClick="return cmd2('irStation',
+	'https://strmreg.1.fm/crock_mobile_mp3')">
+	<img width=100
+	src="https://cdn.onlineradiobox.com/img/logo/5/2885.v1.png">
+	</a>
+    </td>
+    <td class=photo>
+	<a href="" onClick="return cmd2('irStation',
+	'https://strmreg.1.fm/bossanova_mobile_mp3')">
+	<img width=100
+	src="https://cdn.onlineradiobox.com/img/logo/5/2885.v1.png">
+	</a>
+    </td>
+</tr>
+</table>
+<p></p>
+
+
+<script>setup()</script>
+
+
+</body>
+</html>
