@@ -11,13 +11,12 @@ from time import sleep
 
 
 # Address define
-ADR_POWER_RELAY =  0b00010000
-ADR_SPEAKER =  0b00100000
-ADR_LED = 0b01000000
+ADR_RELAY = 0b00000000
+ADR_LED   = 0b00010000
 
 dat_pin = 11
 bck_pin = 13
-wck_pin = 13 # 15 !!!
+wck_pin = 15
 ind_pin = 16
 
 GPIO.setwarnings(False)
@@ -26,7 +25,6 @@ GPIO.setup(dat_pin,GPIO.OUT)
 GPIO.setup(bck_pin,GPIO.OUT)
 GPIO.setup(wck_pin,GPIO.OUT)
 GPIO.setup(ind_pin,GPIO.OUT)
-GPIO.setup(15,GPIO.OUT) # !!!
 
 
 host = '127.0.0.1'
@@ -36,7 +34,6 @@ server = (host, port)
 proc = None
 
 def serial_out( adr, data):
-    #adr = adr << 4
     out = adr | data;
     i = 0
     GPIO.output(ind_pin,GPIO.HIGH)
@@ -82,16 +79,17 @@ while True:
         data = 0b0;
         if ( acPower == '1' ):
             data = 0b1
-        serial_out(ADR_POWER_RELAY, data)
+        if spSwap == '1':
+            data = data | 0b10
+        serial_out(ADR_RELAY, data)
 
     elif command == 'spSwap':
-        data = 0x0
+        data = 0b0
+        if ( acPower == '1' ):
+            data = 0b1
         if spSwap == '1':
-            data = 0x1
-            GPIO.output(15,GPIO.HIGH) # !!!
-        else: #!!!
-            GPIO.output(15,GPIO.LOW) # !!!
-        serial_out(ADR_SPEAKER, data)
+            data = data | 0b10
+        serial_out(ADR_RELAY, data)
 
     elif command == 'sp2nd':
         print('not yet ' + sp2nd)
