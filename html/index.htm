@@ -96,16 +96,20 @@ Audio Corner Power</a>
 
 <font class="lbl" id="t2">Light</font>
 <br>
-<input type="range" id="inputL" min="0" max="15" step="1">
-<p></p>
-
-<font class="lbl">iRadio</font>
-<br>
-<a href="" class="btn" name="btn" onClick="return cmd('irStop')">stop</a>
-<a href="https://siteyamakatsu.jp/audio/internet_music.htm">
-<font class="lbl">link to internet music</font></a>
+<input type="range" id="inputL" min="0" max="11" step="1">
 <p>　</p>
 
+
+<div class=sub>iRadio</div>
+<table class=framePhoto>
+<tr>
+    <td class=photo>
+    <p>
+    <a href="" class="btn" name="btn" onClick="return cmd('irStop')">stop</a>
+    </td>
+</tr>
+</table>
+<p></p>
 
 <div class=sub>Classic</div>
 <table class=framePhoto>
@@ -152,12 +156,26 @@ Audio Corner Power</a>
 <div class=sub>1.FM Radio</div>
 <table class=framePhoto>
 <tr>
-    <td class=exp>A List 80s</td>
-    <td class=exp>All Euro 80's</td>
-    <td class=exp>Classic Rock..</td>
     <td class=exp>Bossa Nova</td>
+    <td class=exp>Absolute 70</td>
+    <td class=exp>A List 80</td>
+    <td class=exp>All Euro 80</td>
 </tr>
 <tr>
+    <td class=photo>
+	<a href="" onClick="return cmd2('irStation',
+	'https://strmreg.1.fm/bossanova_mobile_mp3')">
+	<img width=100
+	src="https://cdn.onlineradiobox.com/img/logo/5/2885.v1.png">
+	</a>
+    </td>
+    <td class=photo>
+	<a href="" onClick="return cmd2('irStation',
+	'https://strmreg.1.fm/70s_mobile_mp3')">
+	<img width=100
+	src="https://cdn.onlineradiobox.com/img/logo/5/2885.v1.png">
+	</a>
+    </td>
     <td class=photo>
 	<a href="" onClick="return cmd2('irStation',
 	'https://strmreg.1.fm/back280s_mobile_mp3')">
@@ -172,6 +190,12 @@ Audio Corner Power</a>
 	src="https://cdn.onlineradiobox.com/img/logo/5/2885.v1.png">
 	</a>
     </td>
+</tr>
+<tr>
+    <td class=exp>Classic Rock</td>
+    <td class=exp></td>
+</tr>
+<tr>
     <td class=photo>
 	<a href="" onClick="return cmd2('irStation',
 	'https://strmreg.1.fm/crock_mobile_mp3')">
@@ -180,11 +204,6 @@ Audio Corner Power</a>
 	</a>
     </td>
     <td class=photo>
-	<a href="" onClick="return cmd2('irStation',
-	'https://strmreg.1.fm/bossanova_mobile_mp3')">
-	<img width=100
-	src="https://cdn.onlineradiobox.com/img/logo/5/2885.v1.png">
-	</a>
     </td>
 </tr>
 </table>
