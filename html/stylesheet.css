@@ -4,7 +4,7 @@
 
 body	{ margin-left:10pt; }
 a	{ text-decoration: none; }
-a:hover	{ color: yellow; }
+a:hover	{ color: gray; }
 
 .lbl {
 	font:bold 100%/100% Helvetica, sans-serif;
@@ -21,7 +21,7 @@ a:hover	{ color: yellow; }
 
 	padding-left: 20px;
 	padding-right: 20px;
-	border-radius: 4px;
+	border-radius: 2px;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -68,7 +68,7 @@ input[type="range"] {
 	height: 14px;
 	width: 400px;
 	background: #5F9EA0;
-	border-radius: 8px;
+	border-radius: 6px;
 	border: solid 3px #dff1ff;
 }
 /* nob design */
@@ -77,6 +77,6 @@ input[type="range"]::-webkit-slider-thumb {
 	background: lightsalmon;
 	width: 20px;
 	height: 30px;
-	border-radius: 6px;
+	border-radius: 4px;
 	box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.15);
 }
