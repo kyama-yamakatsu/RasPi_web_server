@@ -42,10 +42,10 @@ def serial_out( adr, data):
         GPIO.output(bck_pin,GPIO.LOW)
         sleep(1/1000)
         if out & 0x1:
-            print('1')
+#           print('1')
             GPIO.output(dat_pin,GPIO.HIGH)
         else:
-            print('0')
+#           print('0')
             GPIO.output(dat_pin,GPIO.LOW)
         out = out >> 1
         i = i+1
@@ -76,26 +76,39 @@ while True:
 
     # 状態の変更
     if command == 'acPower':
-        data = 0b0;
+        bits = 0b0;
         if ( acPower == '1' ):
-            data = 0b1
+            bits = 0b1
         if spSwap == '1':
-            data = data | 0b10
-        serial_out(ADR_RELAY, data)
+            bits = bits | 0b10
+        if sp2nd == '1':
+            bits = bits | 0b100
+        serial_out(ADR_RELAY, bits)
 
     elif command == 'spSwap':
-        data = 0b0
+        bits = 0b0
         if ( acPower == '1' ):
-            data = 0b1
+            bits = 0b1
         if spSwap == '1':
-            data = data | 0b10
-        serial_out(ADR_RELAY, data)
+            bits = bits | 0b10
+        if sp2nd == '1':
+            bits = bits | 0b100
+        serial_out(ADR_RELAY, bits)
 
     elif command == 'sp2nd':
-        print('not yet ' + sp2nd)
+        bits = 0b0
+        if ( acPower == '1' ):
+            bits = 0b1
+        if spSwap == '1':
+            bits = bits | 0b10
+        if sp2nd == '1':
+            bits = bits | 0b100
+        serial_out(ADR_RELAY, bits)
 
     elif command == 'light':
-        serial_out(ADR_LED, int(param))
+        ldata = int(param)
+        ldata = (11-ldata)+4; # オペアンプの補正処理
+        serial_out(ADR_LED, ldata)
 
     elif command == 'volume':
         subprocess.run("amixer -c 1 -D pulse set Master "+param+"%", shell=True, stdout=subprocess.PIPE)
