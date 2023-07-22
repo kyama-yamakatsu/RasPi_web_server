@@ -26,12 +26,9 @@ GPIO.setup(bck_pin,GPIO.OUT)
 GPIO.setup(wck_pin,GPIO.OUT)
 GPIO.setup(ind_pin,GPIO.OUT)
 
-
-host = '127.0.0.1'
 port = 2000
-server = (host, port)
-
 proc = None
+
 
 def serial_out( adr, data):
     out = adr | data;
@@ -56,14 +53,17 @@ def serial_out( adr, data):
     GPIO.output(wck_pin,GPIO.HIGH)
     GPIO.output(ind_pin,GPIO.LOW)
 
-socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-socket.bind((host, port))
-socket.listen(5)
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# server_socket.bind(('127.0.0.1', port))
+# server_socket.bind((socket.gethostname(), port))
+#   socket.gethostname() -> "raspberrypi"
+server_socket.bind(('', port))
+server_socket.listen(5)
 
 while True:
 
     print('wait..')
-    connection, address = socket.accept()
+    connection, address = server_socket.accept()
     recv = connection.recv(4096).decode()
     data = recv.splitlines()
     command = data[0]
@@ -128,6 +128,6 @@ while True:
         #proc=subprocess.Popen("mplayer "+param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 connection.close()
-socket.close()
+server_socket.close()
 print('server close...')
 exit(0)
