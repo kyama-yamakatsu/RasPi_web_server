@@ -11,7 +11,8 @@ sp2nd = '0'
 volume = '50'
 light = '8'
 
-fr = open('status.txt')
+# ラスト状態を読み込む
+fr = open('status.txt', 'r')
 acPower = fr.readline().rstrip()
 spSwap = fr.readline().rstrip()
 sp2nd = fr.readline().rstrip()
@@ -19,12 +20,12 @@ volume = fr.readline().rstrip()
 light = fr.readline().rstrip()
 fr.close()
 
-# 引数を読む
+# index.htm からの引数を読む、常に command + param 形式
 qh = cgi.FieldStorage(keep_blank_values=True)
 command = qh.getfirst('command','')
 param = qh.getfirst('param','')
 
-# 状態の変更
+# トグル状態の管理
 if command == 'acPower':
     if acPower == '0':
         acPower = '1'
@@ -45,6 +46,7 @@ elif command == 'sp2nd':
     else:
         sp2nd = '0'
 
+# 状態の保存と変更
 elif command == 'volume':
     volume = param
  
@@ -54,7 +56,7 @@ elif command == 'light':
 
 # おまじない
 print('Content-Type: text/html\n')
-# 最新状態を返す
+# 最新状態を index.htm に返す
 print(acPower)
 print(spSwap)
 print(sp2nd)
@@ -62,6 +64,7 @@ print(volume)
 print(light)
 
 # 最新状態を保存する
+# chmod 666 status.txt が必要
 fw = open('status.txt', 'w')
 fw.write(acPower + '\n')
 fw.write(spSwap + '\n')
@@ -76,6 +79,7 @@ port = 2000
 server = (host, port)
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+# 本来 command + param だけで良さげだが、バイトデータを作るため
 socket.connect(server)
 socket.send((command+'\n'+param+'\n'+acPower+'\n'+spSwap+'\n'+sp2nd).encode())
 socket.close()

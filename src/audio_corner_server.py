@@ -74,7 +74,7 @@ while True:
 
     print('command=' + command)
 
-    # 状態の変更
+    # 各状態に合せシリアルバイトデータを作成して出力
     if command == 'acPower':
         bits = 0b0;
         if ( acPower == '1' ):
@@ -105,6 +105,7 @@ while True:
             bits = bits | 0b100
         serial_out(ADR_RELAY, bits)
 
+    # 以下は command + param でコマンド発行が出来るタイプ
     elif command == 'light':
         ldata = int(param)
         ldata = (11-ldata)+4; # オペアンプの補正処理
