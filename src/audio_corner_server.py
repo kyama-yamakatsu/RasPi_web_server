@@ -29,8 +29,13 @@ GPIO.setup(ind_pin,GPIO.OUT)
 port = 2000
 proc = None
 
+lightL = '50'
+lightD = '50'
+lightA = '50'
 
-def serial_out( adr, data):
+
+# シリアル出力を行う
+def serial_out( adr, data ):
     out = adr | data;
     i = 0
     GPIO.output(ind_pin,GPIO.HIGH)
@@ -52,6 +57,16 @@ def serial_out( adr, data):
 
     GPIO.output(wck_pin,GPIO.HIGH)
     GPIO.output(ind_pin,GPIO.LOW)
+
+
+# 外部 Arduino Socket に接続し送信する
+def socket_out( adr, data ):
+    out_server = (adr, port)
+    out_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    out_socket.connect(out_server)
+    out_socket.send( ('light\n' + data).encode() )
+    out_socket.close()
+
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # server_socket.bind(('127.0.0.1', port))
@@ -127,6 +142,22 @@ while True:
             subprocess.run("killall mplayer", shell=True)
         proc=subprocess.Popen("mplayer "+param, shell=True)
         #proc=subprocess.Popen("mplayer "+param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # 以下は外部の Arduino Socket に向けてコマンド送信を行う
+    # param が "start" の時は初期データのリクエスト
+    elif command == 'lightL':
+        if param != 'start':
+            lightL = str(param)
+        socket_out('192.168.1.7', lightL)
+    elif command == 'lightD':
+        if param != 'start':
+            lightD = str(param)
+        socket_out('192.168.1.8', lightD)
+    elif command == 'lightA':
+        if param != 'start':
+            lightA = str(param)
+        socket_out('192.168.1.9', lightA)
+
 
 connection.close()
 server_socket.close()
