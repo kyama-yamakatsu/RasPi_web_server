@@ -10,6 +10,9 @@ spSwap = '0'
 sp2nd = '0'
 volume = '50'
 light = '8'
+lightL = '50'
+lightD = '50'
+lightA = '50'
 
 # ラスト状態を読み込む
 fr = open('status.txt', 'r')
@@ -18,6 +21,9 @@ spSwap = fr.readline().rstrip()
 sp2nd = fr.readline().rstrip()
 volume = fr.readline().rstrip()
 light = fr.readline().rstrip()
+lightL = fr.readline().rstrip()
+lightD = fr.readline().rstrip()
+lightA = fr.readline().rstrip()
 fr.close()
 
 # index.htm からの引数を読む、常に command + param 形式
@@ -53,6 +59,13 @@ elif command == 'volume':
 elif command == 'light':
     light = param
 
+elif command == 'lightL':
+    lightL = param
+elif command == 'lightD':
+    lightD = param
+elif command == 'lightA':
+    lightA = param
+
 
 # おまじない
 print('Content-Type: text/html\n')
@@ -62,6 +75,9 @@ print(spSwap)
 print(sp2nd)
 print(volume)
 print(light)
+print(lightL)
+print(lightD)
+print(lightA)
 
 # 最新状態を保存する
 # chmod 666 status.txt が必要
@@ -71,6 +87,9 @@ fw.write(spSwap + '\n')
 fw.write(sp2nd + '\n')
 fw.write(volume + '\n')
 fw.write(light + '\n')
+fw.write(lightL + '\n')
+fw.write(lightD + '\n')
+fw.write(lightA + '\n')
 fw.close()
 
 # オーディオコーナー操作サーバーに依頼する

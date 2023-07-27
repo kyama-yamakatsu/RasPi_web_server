@@ -8,7 +8,6 @@
 
 <script language="JavaScript">
 //  var ScriptUrl = "http://localhost/cgi-bin/cgi-python.py";
-//  var ScriptUrl = "http://192.168.1.10/cgi-bin/cgi-python.py"; 20220605 x
   var ScriptUrl = "http://192.168.1.6/cgi-bin/cgi-python.py";
   let xhr = new XMLHttpRequest();
 
@@ -47,6 +46,19 @@
     }
     document.getElementById('inputV').addEventListener('input',rangeOnChangeV);
     document.getElementById('inputL').addEventListener('input',rangeOnChangeL);
+
+    const rangeOnChangeLL = (event) => {
+	xhr_open2("lightL", event.target.value);
+    }
+    const rangeOnChangeLD = (event) => {
+	xhr_open2("lightD", event.target.value);
+    }
+    const rangeOnChangeLA = (event) => {
+	xhr_open2("lightA", event.target.value);
+    }
+    document.getElementById('inputLL').addEventListener('input',rangeOnChangeLL);
+    document.getElementById('inputLD').addEventListener('input',rangeOnChangeLD);
+    document.getElementById('inputLA').addEventListener('input',rangeOnChangeLA);
   }
 
   function cmd(command) {
@@ -72,14 +84,26 @@
 	i++;
     }
     document.getElementById('inputV').value = parseInt(data[i++]);
-    document.getElementById('inputL').value = parseInt(data[i]);
+    document.getElementById('inputL').value = parseInt(data[i++]);
+
+    document.getElementById('inputLL').value = parseInt(data[i++]);
+    document.getElementById('inputLD').value = parseInt(data[i++]);
+    document.getElementById('inputLA').value = parseInt(data[i++]);
   }
 </script>
 </head>
 <body>
 
 
-<p></p>
+<div class="tab">
+<!---------------------------------------------------------------------->
+<label>
+    <input type="radio" class="tab_input" name="tab" checked>
+    <font class="lbl">Audio</font>
+</label>
+<div>
+
+<!--.-->
 <a href="" class="btn" name="btn" onClick="return cmd('acPower')">
 Audio Corner Power</a>
 <p></p>
@@ -91,21 +115,31 @@ Audio Corner Power</a>
 <p></p>
 
 <font class="lbl" id="t1">Volume</font>
-<br>
+<p></p>
 <input type="range" id="inputV" min="0" max="100" step="5">
 <p></p>
 
 <font class="lbl" id="t2">Light</font>
-<br>
+<p></p>
 <input type="range" id="inputL" min="0" max="11" step="1">
-<p>　</p>
+<!--.-->
+
+</div>
 
 
+<!---------------------------------------------------------------------->
+<label>
+    <input type="radio" class="tab_input" name="tab">
+    <font class="lbl">Radio</font>
+</label>
+<div>
+
+<!--.-->
 <div class=sub>iRadio</div>
 <table class=framePhoto>
 <tr>
     <td class=photo>
-    <p>
+    <p></p>
     <a href="" class="btn" name="btn" onClick="return cmd('irStop')">stop</a>
     </td>
 </tr>
@@ -208,7 +242,36 @@ Audio Corner Power</a>
     </td>
 </tr>
 </table>
+<!--.-->
+
+</div>
+
+
+<!---------------------------------------------------------------------->
+<label>
+    <input type="radio" class="tab_input" name="tab">
+    <font class="lbl">Room</font>
+</label>
+<div>
+
+<!--.-->
+<font class="lbl" id="t3">Living light</font>
 <p></p>
+<input type="range" id="inputLL" min="0" max="100" step="5">
+<p></p>
+
+<font class="lbl" id="t4">Dining light</font>
+<p></p>
+<input type="range" id="inputLD" min="0" max="100" step="5">
+<p></p>
+
+<font class="lbl" id="t5">Audio room light</font>
+<p></p>
+<input type="range" id="inputLA" min="0" max="100" step="5">
+<!--.-->
+
+</div>
+</div>
 
 
 <script>setup()</script>
