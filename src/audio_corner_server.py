@@ -63,7 +63,12 @@ def serial_out( adr, data ):
 def socket_out( adr, data ):
     out_server = (adr, port)
     out_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    out_socket.connect(out_server)
+    try:
+        out_socket.connect(out_server)
+    except socket.error as e:
+        print( "args:", e.args )
+        out_socket.close()
+        return;
     out_socket.send( ('light\n' + data).encode() )
     out_socket.close()
 

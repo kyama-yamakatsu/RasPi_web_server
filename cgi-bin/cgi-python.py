@@ -14,9 +14,35 @@ lightL = '50'
 lightD = '50'
 lightA = '50'
 
+
+# 最新状態を index.htm に返す
+def status_out():
+    # おまじない
+    print('Content-Type: text/html\n')
+
+    print(acPower)
+    print(spSwap)
+    print(sp2nd)
+    print(volume)
+    print(light)
+    print(lightL)
+    print(lightD)
+    print(lightA)
+
+
 # ラスト状態を読み込む
+#try:
 fr = open('status.txt', 'r')
-acPower = fr.readline().rstrip()
+#except Exception as e:
+#    exit(0)
+#else:
+test = fr.readline().rstrip()
+# 現物合わせ現状からセマフォを兼ねる
+if test == '':
+    fr.close()
+    exit(0)
+
+acPower = test;
 spSwap = fr.readline().rstrip()
 sp2nd = fr.readline().rstrip()
 volume = fr.readline().rstrip()
@@ -66,21 +92,10 @@ elif command == 'lightD':
 elif command == 'lightA':
     lightA = param
 
-
-# おまじない
-print('Content-Type: text/html\n')
-# 最新状態を index.htm に返す
-print(acPower)
-print(spSwap)
-print(sp2nd)
-print(volume)
-print(light)
-print(lightL)
-print(lightD)
-print(lightA)
+status_out()
 
 # 最新状態を保存する
-# chmod 666 status.txt が必要
+# 要 chmod 666 status.txt
 fw = open('status.txt', 'w')
 fw.write(acPower + '\n')
 fw.write(spSwap + '\n')
