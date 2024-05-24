@@ -29,9 +29,10 @@ GPIO.setup(ind_pin,GPIO.OUT)
 port = 2000
 proc = None
 
-lightL = '50'
-lightD = '50'
-lightA = '50'
+# 明るさレベルは 0-255
+lightL = '127'
+lightD = '127'
+lightA = '127'
 
 
 # シリアル出力を行う
