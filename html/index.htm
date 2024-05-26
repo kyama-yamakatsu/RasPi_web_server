@@ -87,6 +87,15 @@
     document.getElementById('inputV').value = parseInt(data[i++]);
     document.getElementById('inputL').value = parseInt(data[i++]);
 
+//  lightL = 'L', lightM = 'M', lightH = 'H'
+    value = data[i++];
+    document.getElementsByName("rLightL_btn")[0].style.backgroundColor =
+	(value == 'L') ? "lightsalmon" : "#5F9EA0";
+    document.getElementsByName("rLightM_btn")[0].style.backgroundColor =
+	(value == 'M') ? "lightsalmon" : "#5F9EA0";
+    document.getElementsByName("rLightH_btn")[0].style.backgroundColor =
+	(value == 'H') ? "lightsalmon" : "#5F9EA0";
+
     document.getElementById('inputLL').value = parseInt(data[i++]);
     document.getElementById('inputLD').value = parseInt(data[i++]);
     document.getElementById('inputLA').value = parseInt(data[i++]);
@@ -257,6 +266,15 @@ Audio Corner Power</a>
 <div>
 
 <!--.-->
+<font class="lbl">Light</font>
+<p>　</p>
+<a href="" class="fixbtn" name="rLightL_btn" onClick="return cmd('rLightL')">Low</a>
+<a href="" class="fixbtn" name="rLightM_btn" onClick="return cmd('rLightM')">Mid</a>
+<a href="" class="fixbtn" name="rLightH_btn" onClick="return cmd('rLightH')">H  i</a>
+<p>　</p>
+<p>　</p>
+<p>　</p>
+
 <font class="lbl" id="t3">Living light</font>
 <p></p>
 <input type="range" id="inputLL" min="0" max="255" step="2">

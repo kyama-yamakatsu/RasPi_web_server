@@ -10,6 +10,7 @@ spSwap = '0'
 sp2nd = '0'
 volume = '50'
 light = '8'
+rLight = 'M'
 lightL = '50'
 lightD = '50'
 lightA = '50'
@@ -25,6 +26,7 @@ def status_out():
     print(sp2nd)
     print(volume)
     print(light)
+    print(rLight)
     print(lightL)
     print(lightD)
     print(lightA)
@@ -47,6 +49,7 @@ spSwap = fr.readline().rstrip()
 sp2nd = fr.readline().rstrip()
 volume = fr.readline().rstrip()
 light = fr.readline().rstrip()
+rLight = fr.readline().rstrip()
 lightL = fr.readline().rstrip()
 lightD = fr.readline().rstrip()
 lightA = fr.readline().rstrip()
@@ -92,6 +95,17 @@ elif command == 'lightD':
 elif command == 'lightA':
     lightA = param
 
+# ライトボタン
+elif command == 'rLightL':
+    rLight = 'L'
+    lightL = lightD = lightA = '40'
+elif command == 'rLightM':
+    rLight = 'M'
+    lightL = lightD = lightA = '127'
+elif command == 'rLightH':
+    rLight = 'H'
+    lightL = lightD = lightA = '255'
+
 status_out()
 
 # 最新状態を保存する
@@ -102,6 +116,7 @@ fw.write(spSwap + '\n')
 fw.write(sp2nd + '\n')
 fw.write(volume + '\n')
 fw.write(light + '\n')
+fw.write(rLight + '\n')
 fw.write(lightL + '\n')
 fw.write(lightD + '\n')
 fw.write(lightA + '\n')

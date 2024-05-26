@@ -149,6 +149,22 @@ while True:
         proc=subprocess.Popen("mplayer "+param, shell=True)
         #proc=subprocess.Popen("mplayer "+param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+    elif command == 'rLightL':
+        lightL = lightM = lightH = '40'
+        socket_out('192.168.1.7', lightL)
+        socket_out('192.168.1.8', lightM)
+        socket_out('192.168.1.9', lightH)
+    elif command == 'rLightM':
+        lightL = lightM = lightH = '127'
+        socket_out('192.168.1.7', lightL)
+        socket_out('192.168.1.8', lightM)
+        socket_out('192.168.1.9', lightH)
+    elif command == 'rLightH':
+        lightL = lightM = lightH = '255'
+        socket_out('192.168.1.7', lightL)
+        socket_out('192.168.1.8', lightM)
+        socket_out('192.168.1.9', lightH)
+        
     # 以下は外部の Arduino Socket に向けてコマンド送信を行う
     # param が "start" の時は初期データのリクエスト
     elif command == 'lightL':
