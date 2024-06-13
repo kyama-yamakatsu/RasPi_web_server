@@ -54,12 +54,12 @@
     const rangeOnChangeLD = (event) => {
 	xhr_open2("lightD", event.target.value);
     }
-    const rangeOnChangeLA = (event) => {
-	xhr_open2("lightA", event.target.value);
+    const rangeOnChangeLK = (event) => {
+	xhr_open2("lightK", event.target.value);
     }
     document.getElementById('inputLL').addEventListener('input',rangeOnChangeLL);
     document.getElementById('inputLD').addEventListener('input',rangeOnChangeLD);
-    document.getElementById('inputLA').addEventListener('input',rangeOnChangeLA);
+    document.getElementById('inputLK').addEventListener('input',rangeOnChangeLK);
   }
 
   function cmd(command) {
@@ -98,7 +98,7 @@
 
     document.getElementById('inputLL').value = parseInt(data[i++]);
     document.getElementById('inputLD').value = parseInt(data[i++]);
-    document.getElementById('inputLA').value = parseInt(data[i++]);
+    document.getElementById('inputLK').value = parseInt(data[i++]);
   }
 </script>
 </head>
@@ -267,27 +267,27 @@ Audio Corner Power</a>
 
 <!--.-->
 <font class="lbl">Lights</font>
-<p>　</p>
-<a href="" class="fixbtn" name="rLightL_btn" onClick="return cmd('rLightL')">Low</a>
-<a href="" class="fixbtn" name="rLightM_btn" onClick="return cmd('rLightM')">Mid</a>
-<a href="" class="fixbtn" name="rLightH_btn" onClick="return cmd('rLightH')">H  i</a>
-<p>　</p>
+<p></p>
+<a href="" class="circle" name="rLightL_btn" onClick="return cmd('rLightL')">Low</a>
+<a href="" class="circle" name="rLightM_btn" onClick="return cmd('rLightM')">Mid</a>
+<a href="" class="circle" name="rLightH_btn" onClick="return cmd('rLightH')">Hi</a>
+
 <p>　</p>
 <p>　</p>
 
-<font class="lbl" id="t3">Living light</font>
+<font class="lbl" id="t3">Living</font>
 <p></p>
 <input type="range" id="inputLL" min="0" max="255" step="2">
 <p></p>
 
-<font class="lbl" id="t4">Dining light</font>
+<font class="lbl" id="t4">Dining</font>
 <p></p>
 <input type="range" id="inputLD" min="0" max="255" step="2">
 <p></p>
 
-<font class="lbl" id="t5">Audio room light</font>
+<font class="lbl" id="t5">Kitchen</font>
 <p></p>
-<input type="range" id="inputLA" min="0" max="255" step="2">
+<input type="range" id="inputLK" min="0" max="255" step="2">
 <!--.-->
 
 </div>
