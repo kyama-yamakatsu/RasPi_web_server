@@ -32,7 +32,7 @@ proc = None
 # 明るさレベルは 0-255
 lightL = '127'
 lightD = '127'
-lightA = '127'
+lightK = '127'
 
 
 # シリアル出力を行う
@@ -150,20 +150,20 @@ while True:
         #proc=subprocess.Popen("mplayer "+param, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     elif command == 'rLightL':
-        lightL = lightM = lightH = '40'
+        lightL = lightD = lightK = '40'
         socket_out('192.168.1.7', lightL)
-        socket_out('192.168.1.8', lightM)
-        socket_out('192.168.1.9', lightH)
+        socket_out('192.168.1.8', lightD)
+        socket_out('192.168.1.9', lightK)
     elif command == 'rLightM':
-        lightL = lightM = lightH = '127'
+        lightL = lightD = lightK = '127'
         socket_out('192.168.1.7', lightL)
-        socket_out('192.168.1.8', lightM)
-        socket_out('192.168.1.9', lightH)
+        socket_out('192.168.1.8', lightD)
+        socket_out('192.168.1.9', lightK)
     elif command == 'rLightH':
-        lightL = lightM = lightH = '255'
+        lightL = lightD = lightK = '255'
         socket_out('192.168.1.7', lightL)
-        socket_out('192.168.1.8', lightM)
-        socket_out('192.168.1.9', lightH)
+        socket_out('192.168.1.8', lightD)
+        socket_out('192.168.1.9', lightK)
         
     # 以下は外部の Arduino Socket に向けてコマンド送信を行う
     # param が "start" の時は初期データのリクエスト
@@ -175,10 +175,10 @@ while True:
         if param != 'start':
             lightD = str(param)
         socket_out('192.168.1.8', lightD)
-    elif command == 'lightA':
+    elif command == 'lightK':
         if param != 'start':
-            lightA = str(param)
-        socket_out('192.168.1.9', lightA)
+            lightK = str(param)
+        socket_out('192.168.1.9', lightK)
 
 
 connection.close()
