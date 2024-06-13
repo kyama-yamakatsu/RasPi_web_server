@@ -13,7 +13,7 @@ light = '8'
 rLight = 'M'
 lightL = '50'
 lightD = '50'
-lightA = '50'
+lightK = '50'
 
 
 # 最新状態を index.htm に返す
@@ -29,7 +29,7 @@ def status_out():
     print(rLight)
     print(lightL)
     print(lightD)
-    print(lightA)
+    print(lightK)
 
 
 # ラスト状態を読み込む
@@ -52,7 +52,7 @@ light = fr.readline().rstrip()
 rLight = fr.readline().rstrip()
 lightL = fr.readline().rstrip()
 lightD = fr.readline().rstrip()
-lightA = fr.readline().rstrip()
+lightK = fr.readline().rstrip()
 fr.close()
 
 # index.htm からの引数を読む、常に command + param 形式
@@ -92,19 +92,19 @@ elif command == 'lightL':
     lightL = param
 elif command == 'lightD':
     lightD = param
-elif command == 'lightA':
-    lightA = param
+elif command == 'lightK':
+    lightK = param
 
 # ライトボタン
 elif command == 'rLightL':
     rLight = 'L'
-    lightL = lightD = lightA = '40'
+    lightL = lightD = lightK = '40'
 elif command == 'rLightM':
     rLight = 'M'
-    lightL = lightD = lightA = '127'
+    lightL = lightD = lightK = '127'
 elif command == 'rLightH':
     rLight = 'H'
-    lightL = lightD = lightA = '255'
+    lightL = lightD = lightK = '255'
 
 status_out()
 
@@ -119,7 +119,7 @@ fw.write(light + '\n')
 fw.write(rLight + '\n')
 fw.write(lightL + '\n')
 fw.write(lightD + '\n')
-fw.write(lightA + '\n')
+fw.write(lightK + '\n')
 fw.close()
 
 # オーディオコーナー操作サーバーに依頼する
