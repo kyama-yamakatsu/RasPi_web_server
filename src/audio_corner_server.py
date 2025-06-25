@@ -34,6 +34,12 @@ lightL = '127'
 lightD = '127'
 lightK = '127'
 
+# 周辺マイコンIPアドレス
+client_ip_adr = ''
+lightL_ip_adr = ''
+lightD_ip_adr = ''
+lightK_ip_adr = ''
+
 
 # シリアル出力を行う
 def serial_out( adr, data ):
@@ -62,6 +68,9 @@ def serial_out( adr, data ):
 
 # 外部 Arduino Socket に接続し送信する
 def socket_out( adr, data ):
+    if adr == '':
+        return
+
     out_server = (adr, port)
     out_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
@@ -70,6 +79,7 @@ def socket_out( adr, data ):
         print( "args:", e.args )
         out_socket.close()
         return;
+
     out_socket.send( ('light\n' + data).encode() )
     out_socket.close()
 
@@ -94,6 +104,7 @@ while True:
     sp2nd =  data[4]
 
     print('command=' + command)
+    client_ip_adr = address[0]
 
     # 各状態に合せシリアルバイトデータを作成して出力
     if command == 'acPower':
@@ -151,34 +162,41 @@ while True:
 
     elif command == 'rLightL':
         lightL = lightD = lightK = '40'
-        socket_out('192.168.1.7', lightL)
-        socket_out('192.168.1.8', lightD)
-        socket_out('192.168.1.9', lightK)
+        socket_out(lightL_ip_adr, lightL)
+        socket_out(lightD_ip_adr, lightD)
+        socket_out(lightK_ip_adr, lightK)
     elif command == 'rLightM':
         lightL = lightD = lightK = '127'
-        socket_out('192.168.1.7', lightL)
-        socket_out('192.168.1.8', lightD)
-        socket_out('192.168.1.9', lightK)
+        socket_out(lightL_ip_adr, lightL)
+        socket_out(lightD_ip_adr, lightD)
+        socket_out(lightK_ip_adr, lightK)
     elif command == 'rLightH':
         lightL = lightD = lightK = '255'
-        socket_out('192.168.1.7', lightL)
-        socket_out('192.168.1.8', lightD)
-        socket_out('192.168.1.9', lightK)
+        socket_out(lightL_ip_adr, lightL)
+        socket_out(lightD_ip_adr, lightD)
+        socket_out(lightK_ip_adr, lightK)
         
     # 以下は外部の Arduino Socket に向けてコマンド送信を行う
-    # param が "start" の時は初期データのリクエスト
+    # 周辺機器は必ず param が "start" で始まり、初期データをリクエストする
+    # この最初のタイミングでクライアントの IP アドレスを取得する
     elif command == 'lightL':
-        if param != 'start':
+        if param == 'start':
+            lightL_ip_adr = client_ip_adr
+        else:
             lightL = str(param)
-        socket_out('192.168.1.7', lightL)
+        socket_out(lightL_ip_adr, lightL)
     elif command == 'lightD':
-        if param != 'start':
+        if param == 'start':
+            lightD_ip_adr = client_ip_adr
+        else:
             lightD = str(param)
-        socket_out('192.168.1.8', lightD)
+        socket_out(lightD_ip_adr, lightD)
     elif command == 'lightK':
-        if param != 'start':
+        if param == 'start':
+            lightK_ip_adr = client_ip_adr
+        else:
             lightK = str(param)
-        socket_out('192.168.1.9', lightK)
+        socket_out(lightK_ip_adr, lightK)
 
 
 connection.close()
